@@ -4,9 +4,10 @@ class Users::Create < ApplicationInteraction
   array :interests, default: []
   array :skills, default: []
 
-  validates :name, :patronymic, :email, :age, :nationality, :country, :gender, presence: true
+  validates :name, :patronymic, :age, :nationality, :country, :gender, presence: true
   validates :age, numericality: { greater_than: 0, less_than_or_equal_to: 90 }
   validates :gender, inclusion: { in: %w[male female] }
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :check_user_email
 
   def to_model

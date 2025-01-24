@@ -121,5 +121,12 @@ RSpec.describe Users::Create, type: :interaction do
       expect(result.valid?).to be_falsey
       expect(result.errors.full_messages).to include("Email already exists")
     end
+
+    it 'not creates user with bad email' do
+      result = described_class.run(valid_user_params.merge(email: 'max123.com'))
+
+      expect(result.valid?).to be_falsey
+      expect(result.errors.full_messages).to include("Email is invalid")
+    end
   end
 end
