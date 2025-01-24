@@ -37,16 +37,6 @@ class Users::Create < ApplicationInteraction
   end
 
   def check_user_email
-    User.where(email:).empty?
+    errors.add(:email, 'already exists') if User.where(email:).present?
   end
 end
-
-
-# Нужно:
-# 1. Использовать gem ActiveInteraction => https://github.com/AaronLasseigne/active_interaction отрефакторить класс Users::Create+
-# 6. При рефакторнге кода использовать Декларативное описание(подход в программировании)+
-# 2. Исправить опечатку Skil. Есть 2 пути решения. Описать оба. +
-# 3. Исправить связи +
-# 4. Поднять Rails приложение и в нем использовать класс Users::Create+
-# 7. nestes attributes +
-# 5. Написать тесты
